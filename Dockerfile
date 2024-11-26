@@ -1,11 +1,20 @@
-FROM node:10-slim
+# Use the official Node.js 18 image as the base
+FROM node:18
 
-WORKDIR /home/node/app
+# Set the working directory inside the container
+WORKDIR /app
 
-COPY . .
+# Copy package.json and package-lock.json for dependency installation
+COPY package*.json ./
 
+# Install dependencies
 RUN npm install
 
+# Copy the rest of the application code
+COPY . .
+
+# Expose port 3000 for the application
 EXPOSE 3000
 
-CMD [ "node" ,"index.js" ]
+# Start the application
+CMD ["node", "index.js"]
